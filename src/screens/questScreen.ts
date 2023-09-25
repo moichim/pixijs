@@ -1,14 +1,11 @@
-import { Assets, AssetsClass, Container, DisplayObject, Graphics, Resource, Sprite, SpriteSource, Texture } from "pixi.js";
-import { Parallaxes } from '../elements/parallax/parallaxes';
-import { AbstractScreen, AppScreen } from "../utils/routing";
-import { Parallax } from "../elements/parallax/parallax";
-import { ColorParallax } from "../elements/parallax/parallaxes/colorParallax";
-import { SpriteParallax } from "../elements/parallax/parallaxes/spriteParallax";
 import { Tween } from "@tweenjs/tween.js";
 import { OldFilmFilter } from "pixi-filters";
-import { app } from "../main";
+import { Resource, Texture } from "pixi.js";
+import { Parallaxes } from '../elements/parallax/parallaxes';
+import { SpriteParallax } from "../elements/parallax/parallaxes/spriteParallax";
+import { AbstractScreen } from "../utils/routing";
 
-export class LoadScreen extends AbstractScreen {
+export class QuestScreen extends AbstractScreen {
 
     declare assets: {
         // mask: Texture<Resource>,

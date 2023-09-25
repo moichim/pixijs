@@ -1,6 +1,6 @@
 import { Application, Container, Rectangle, Sprite } from 'pixi.js';
 import { routing } from './utils/routing';
-import { LoadScreen } from './screens/LoadScreen';
+import { QuestScreen } from './screens/questScreen';
 import { update } from '@tweenjs/tween.js';
 import { animationManager } from './utils/animations';
 
@@ -25,7 +25,7 @@ async function init() {
     // Add pixi canvas element (app.view) to the document's body
     document.body.appendChild(app.view);
 
-    routing.showScreen( LoadScreen );
+    routing.showScreen( QuestScreen );
 }
 
 // Init everything
