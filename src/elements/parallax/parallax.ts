@@ -1,10 +1,9 @@
-import { BlurFilter, COLOR_MASK_BITS, Container, Graphics } from "pixi.js";
+import { BlurFilter, Container, Graphics } from "pixi.js";
 import { Parallaxes } from "./parallaxes";
 import { XYVal } from "../../utils/XYVal";
-import { animationManager } from "../../utils/animations";
 import { Tween } from "@tweenjs/tween.js";
-import { app } from "../../main";
 import { ColorOverlayFilter, DropShadowFilter } from "pixi-filters";
+import { app } from "../../main";
 
 /**
  * Vystavené parametry:
@@ -17,7 +16,7 @@ import { ColorOverlayFilter, DropShadowFilter } from "pixi-filters";
  * - amount,
  * - fow
  */
-export class Parallax extends Container {
+export abstract class Parallax extends Container {
 
     public amount: number = 1;
 
@@ -26,7 +25,7 @@ export class Parallax extends Container {
     public panner: Container = new Container;
     public centerer: Container = new Container;
 
-    public graphics = new Graphics();
+    public graphics!: Container;
 
     public dimension = new XYVal();
     public pan: XYVal = new XYVal();
@@ -34,13 +33,67 @@ export class Parallax extends Container {
 
     public tween = new Tween( this );
 
-    public blur = new BlurFilter( 0, 20 );
-    public overlay = new ColorOverlayFilter( 0xff00ff, 1 );
+    public blur = new BlurFilter( 0 );
+    public overlay = new ColorOverlayFilter( 0xff00ff, 0 );
     public shadow = new DropShadowFilter( {
         alpha: 0,
         offset: {x:0,y:0},
         blur: 5
     } );
+
+    public constructor() {
+        super();
+        
+        this.pivot.set( 0.5 );
+
+        // Setup panner
+        this.panner.pivot.set( 0.5 );
+
+        // Setup centerer
+        this.centerer.pivot.set( 0.5 );
+
+        // Setup graphics
+        this.graphics = this.createGraphics();
+        this.graphics.pivot.set( 0.5 );
+
+        // Bind it all together
+        this.panner.addChild( this.centerer );
+        this.centerer.addChild( this.graphics );
+        this.addChild( this.panner );
+
+        // Apply filters
+        this.graphics.filters = [ 
+            this.overlay, 
+            this.blur,
+            this.shadow
+        ];
+
+        this.tween = new Tween( this );
+    }
+
+    startTween() {
+
+        const limit = ( this.depth ) / ( ( Math.random() * 50 )  - 100 ) ;
+        const timing = Math.abs( Math.random() * 3000 ) + 2000;
+        const rotate = (Math.random() - 2 + 1 ) * 0.1;
+
+        this.tween.to( { 
+            graphics: {
+                x: limit,
+                rotation: rotate
+            },
+        }, timing )
+            .yoyo( true )
+            .repeat( Infinity )
+            .start();
+
+        app.ticker.add( () => {
+            this.tween.update()
+        } );
+
+    }
+
+    protected abstract createGraphics(): Container;
 
     protected _color: number = 0xffffff;
     public get color() { return this._color; }
@@ -129,23 +182,7 @@ export class Parallax extends Container {
 
     protected binded: boolean = false;
 
-    public constructor() {
-        super();
-        this.pivot.set( 0.5 );
-        this.panner.pivot.set( 0.5 );
-        this.centerer.pivot.set( 0.5 );
-        this.graphics.pivot.set( 0.5 );
-
-        this.panner.addChild( this.centerer );
-        this.centerer.addChild( this.graphics );
-        this.addChild( this.panner );
-
-        this.graphics.filters = [ 
-            this.overlay, 
-            this.blur,
-            // this.shadow,
-        ];
-    }
+    
 
     public bind() {
 
@@ -186,30 +223,8 @@ export class Parallax extends Container {
 
         }
 
-        const tween = new Tween( this )
-            .to( {depth: 5}, 4000 )
-            .yoyo( true )
-            .repeat( Infinity )
-            .start();
-
-        // app.ticker.add( () => tween.update() );
-
     }
 
-    protected resetContainer() {
-        this.pivot.set( .5 );
-    }
-
-    public draw() {
-
-        // console.log( this );
-
-        this.graphics.x = -this.dimension.x / 2;
-        this.graphics.y = -this.dimension.y / 2;
-
-        this.graphics.beginFill( this.color );
-        this.graphics.drawRect( 0, 0, this.dimension.x, this.dimension.y );
-
-    }
+    public abstract draw(): void;
 
 }

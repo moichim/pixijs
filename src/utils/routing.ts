@@ -5,6 +5,10 @@ import { pool } from "./pool";
 
 export interface AppScreen extends PIXI.Container {
 
+    assets?: {
+        [index:string]: PIXI.Texture<PIXI.Resource>
+    }
+
     container: PIXI.Container;
 
     show?(): Promise<void>;
@@ -26,6 +30,43 @@ export interface AppScreen extends PIXI.Container {
     blur?(): void;
 
     focus?(): void;
+
+}
+
+export abstract class AbstractScreen extends PIXI.Container implements AppScreen {
+
+
+    protected loaded: boolean = false;
+
+
+    container = new PIXI.Container;
+
+    assets: {
+        [index:string]: PIXI.Texture<PIXI.Resource>
+    } = {};
+
+
+    constructor() {
+        super();
+    }
+
+    async prepare() {
+        return await this.onInit();
+    }
+
+    protected abstract onInit(): Promise<void>;
+
+    async loadAssets( bundle: string, map: PIXI.ResolverAssetsArray | PIXI.ResolverAssetsObject ) {
+
+        PIXI.Assets.addBundle( bundle, map );
+        this.assets = await PIXI.Assets.loadBundle( bundle );
+
+        this.loaded = true;
+
+        return this.assets;
+    }
+
+
 
 }
 
@@ -63,7 +104,7 @@ class Routing {
         this.container.addChild( screen );
 
         if ( screen.prepare ) 
-            screen.prepare();
+            await screen.prepare();
         
         if ( screen.resize ) 
             screen.resize( this.width, this.height );

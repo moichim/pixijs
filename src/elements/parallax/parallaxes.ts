@@ -1,5 +1,5 @@
 import { Tween } from "@tweenjs/tween.js";
-import { Container } from "pixi.js";
+import { Container, Resource, Sprite, Texture } from "pixi.js";
 import { app } from "../../main";
 import { Parallax } from "./parallax";
 import { XYVal } from "../../utils/XYVal";
@@ -14,7 +14,7 @@ export class Parallaxes extends Container {
     public get depthScaleFactor() { return this._depthScaleFactor; }
     public set depthScaleFactor( value: number ) {
         this._depthScaleFactor = value;
-        this.children.map( item => item.applyParentDepth( value ) );
+        this.parallaxes.map( item => item.applyParentDepth( value ) );
     }
 
     /** What is the difference between depth 0 and depth 1? */
@@ -22,17 +22,17 @@ export class Parallaxes extends Container {
     public get depthBlurFactor() { return this._depthScaleFactor; }
     public set depthBlurFactor( value: number ) {
         this._depthScaleFactor = value;
-        this.children.map( item => item.applyParentBlur( value ) );
+        this.parallaxes.map( item => item.applyParentBlur( value ) );
     }
 
-    public bgColor: number = 0xffff00;
+    public bgColor: number = 0xf5b342;
 
      /** What is the difference between depth 0 and depth 1? */
      public _depthOverlayFactor: number = 0;
      public get depthOverlayFactor() { return this._depthScaleFactor; }
      public set depthOverlayFactor( value: number ) {
          this._depthOverlayFactor = value;
-         this.children.map( item => item.applyParentOverlay( value ) );
+         this.parallaxes.map( item => item.applyParentOverlay( value ) );
      }
 
     /** What is the difference between depth 0 and depth 1? */
@@ -40,35 +40,30 @@ export class Parallaxes extends Container {
     public get depthShadowFactor() { return this._depthScaleFactor; }
     public set depthShadowFactor( value: number ) {
         this._depthShadowFactor = value;
-        this.children.map( item => item.applyParentShadow( value ) );
+        this.parallaxes.map( item => item.applyParentShadow( value ) );
     }
 
     /** What is the influence of the pan? */
     public _panAmount: number = 1;
 
-    declare children: Parallax[];
+    // declare children: Parallax[];
+
+    public parallaxes: Parallax[] = [];
 
     constructor(
         /** The overall depth of the parallax set */
+        protected bg?: Texture<Resource>
     ) {
         super();
 
         this.pivot.set( .5 );
 
-        this.pan.onX = (value) => { this.children.map( item => item.pan.x = value ) };
+        this.pan.onX = (value) => { this.parallaxes.map( item => item.pan.x = value ) };
 
-        this.pan.onY = (value) => { this.children.map( item => item.pan.y = value ) };
+        this.pan.onY = (value) => { this.parallaxes.map( item => item.pan.y = value ) };
 
         this.position.set( app.screen.width / 2, app.screen.height / 2 );
 
-        this.addParallax( new Parallax, {
-            color: 0x12345,
-            depth: 5,
-            y: 0,
-            x: -100,
-            height: 200,
-            width: 100
-        } );
 
         window.addEventListener( "keydown", event => {
     
@@ -86,73 +81,18 @@ export class Parallaxes extends Container {
             }
         } );
 
-        this.addParallax( new Parallax, {
-            color: 0xff00ff,
-            depth: 2,
-            y: 20,
-            x: 0,
-            height: 500,
-            width: 1500
-        } );
+        if ( this.bg ) {
+            const bg = new Sprite( this.bg );
+            bg.anchor.set(.5);
+            this.addChild( bg );
+        }
+            
 
-        this.addParallax( new Parallax, {
-            color: 0x00ff00,
-            depth: 1,
-            y: -400,
-            x: 0,
-            height: 200,
-            width: 1500
-        } );
+    }
 
-        this.addParallax( new Parallax, {
-            color: 0xff0000,
-            depth: 0,
-            y: 60,
-            x: 100,
-            height: 200,
-            width: 100
-        } );
-
-        this.addParallax( new Parallax, {
-            color: 0x0000ff,
-            depth: -1,
-            y: 60,
-            x: 100,
-            height: 200,
-            width: 100
-        } );
-
-        this.pan.x = -10;
-        this.pan.y = -10;
-
-        // this.depthScaleFactor = 2;
-
-        const amount = new Tween( this )
-            .to( { 
-                _depthBlurFactor: 10,
-                _depthScaleFactor: 0.1,
-                _depthOverlayFactor: 0.1,
-                pan: {
-                    x: 10,
-                    y: 10
-                },
-                // bgColor: 0x00ffff,
-                _depthShadowFactor: 1
-            }, 5000 )
-            //.yoyo( true )
-            // .repeat( 1 )
-            .onUpdate( (value) => {
-                this.depthScaleFactor = value._depthScaleFactor;
-                this.depthBlurFactor = value._depthBlurFactor
-                this.depthOverlayFactor = value._depthOverlayFactor;
-                this.depthShadowFactor = value._depthShadowFactor;
-            } )
-            .start();
-
-        app.ticker.add( () => {
-            amount.update();
-        } );
-
+    public setBgColor( color: number ) {
+        this.bgColor = color;
+        this.parallaxes.map( item => item.applyParentOverlay( color ) );
     }
 
     public addParallax( item: Parallax, options?: {
@@ -165,6 +105,7 @@ export class Parallaxes extends Container {
     } ) {
 
         this.addChild( item );
+        this.parallaxes.push( item );
 
         item.bind();
 

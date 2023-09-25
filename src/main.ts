@@ -7,9 +7,10 @@ import { animationManager } from './utils/animations';
 /** The PixiJS app Application instance, shared across the project */
 export const app = new Application<HTMLCanvasElement>({
     // resolution: Math.max(window.devicePixelRatio, 2),
-    backgroundColor: 0x000000,
-    width: window.innerWidth,
-    height: window.innerHeight
+    backgroundColor: 0xd4b387,
+    width: 1000,//window.innerWidth,
+    height: 800, //window.innerHeight,
+    // backgroundAlpha: 0
 });
 
 
@@ -29,3 +30,6 @@ async function init() {
 
 // Init everything
 init();
+
+
+globalThis.__PIXI_APP__ = app;
