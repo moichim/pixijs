@@ -1,9 +1,11 @@
 import { Tween } from "@tweenjs/tween.js";
-import { OldFilmFilter } from "pixi-filters";
-import { Resource, Texture } from "pixi.js";
+import { BevelFilter, GlowFilter, OldFilmFilter, PixelateFilter, RGBSplitFilter, ReflectionFilter, ShockwaveFilter, ZoomBlurFilter } from "pixi-filters";
+import { NoiseFilter, Resource, Texture } from "pixi.js";
 import { Parallaxes } from '../elements/parallax/parallaxes';
 import { SpriteParallax } from "../elements/parallax/parallaxes/spriteParallax";
 import { AbstractScreen } from "../utils/routing";
+import { QuestParallax } from "../elements/quest/questParallax";
+import { app } from "../main";
 
 export class QuestScreen extends AbstractScreen {
 
@@ -12,7 +14,8 @@ export class QuestScreen extends AbstractScreen {
         a: Texture<Resource>,
         b: Texture<Resource>,
         c: Texture<Resource>,
-        bg: Texture<Resource>
+        bg: Texture<Resource>,
+        bird: Texture<Resource>
     }
 
     public tween!: Tween<Parallaxes>;
@@ -24,9 +27,8 @@ export class QuestScreen extends AbstractScreen {
             b: "raw-assets/paper_2.png",
             c: "raw-assets/paper_3.png",
             bg: "raw-assets/bg.jpg",
+            bird: "raw-assets/bird.png"
         } );
-
-       
 
         return;
 
@@ -56,20 +58,29 @@ export class QuestScreen extends AbstractScreen {
             y: -100
         } );
 
-        parallaxes.addParallax( new SpriteParallax( this.assets.a ), {
-            color: 0xff0000,
+        const q = new QuestParallax( this.assets.b, [ -200, -100, 100, 0 ], this.assets );
+
+        const r = new QuestParallax( this.assets.b, [ -200, -100, 100, 0 ], this.assets );
+
+        parallaxes.addParallax( r, {
+            depth: 1,
+            y: 100
+        } );
+
+        parallaxes.addParallax( q, {
             depth: 0,
-            y: 0
+            y: 200
         } );
 
+        q.addNumber( 7 );
 
+        r.addNumber( 3 );
 
-        parallaxes.addParallax( new SpriteParallax( this.assets.b ), {
-            color: 0xff0000,
-            depth: -3,
-            y: 150
-        } );
+        r.addNumber( 4 );
 
+        
+
+        /*
         const vignette = new OldFilmFilter({
             noise: 0.7,
             noiseSize: 2,
@@ -82,6 +93,16 @@ export class QuestScreen extends AbstractScreen {
         parallaxes.filters = [
             vignette
         ];
+
+        */
+
+        this.filters = [];
+
+        this.filters.push(
+            // new RGBSplitFilter
+        );
+
+        //this.filters.push( new PixelateFilter(5));
     
 
         // Then setup the parallax
@@ -93,22 +114,32 @@ export class QuestScreen extends AbstractScreen {
         this.tween = new Tween<Parallaxes>( parallaxes )
 
             .to( {
-                depthBlurFactor: 2,
-                depthScaleFactor: 0.05,
-                depthOverlayFactor: .07,
+                depthBlurFactor: 1,
+                depthScaleFactor: 0.1,
+                depthOverlayFactor: .1,
                 pan: {
                     y: 10
                 }
             }, 2000 )
-            // .delay( 500 )
-            .onComplete( result => {
-                console.log( "starting", parallaxes.children );
-                // parallaxes.parallaxes.map( item => item.startTween() );
-            } )
             .start( );
         
 
         this.addChild( parallaxes );
+
+
+        this.interactive = true;
+        this.on( "mousemove", event => {
+
+            const calcAspect = ( value: number, side: number ) => {
+                const center = side / 2;
+                return ( center - value ) / center;
+            }
+
+            parallaxes.pan.x = calcAspect( event.x, app.screen.width );
+
+            parallaxes.pan.y = calcAspect( event.y, app.screen.height ) + 10;
+
+        } )
 
     }
 

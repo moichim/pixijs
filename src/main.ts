@@ -14,7 +14,6 @@ export const app = new Application<HTMLCanvasElement>({
 });
 
 
-// app.ticker.add( doTicks );
 
 app.ticker.add( (dt) => {
     animationManager.update();
@@ -22,6 +21,7 @@ app.ticker.add( (dt) => {
 
 /** Setup app and initialise assets */
 async function init() {
+
     // Add pixi canvas element (app.view) to the document's body
     document.body.appendChild(app.view);
 
@@ -31,5 +31,6 @@ async function init() {
 // Init everything
 init();
 
-
+// Debugging
+// https://addons.mozilla.org/en-US/firefox/addon/pixijs-devtools/
 globalThis.__PIXI_APP__ = app;

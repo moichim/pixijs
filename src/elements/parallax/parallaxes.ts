@@ -3,11 +3,17 @@ import { Container, Resource, Sprite, Texture } from "pixi.js";
 import { app } from "../../main";
 import { Parallax } from "./parallax";
 import { XYVal } from "../../utils/XYVal";
+import { AppScreen } from "../../utils/routing";
 
 export class Parallaxes extends Container {
 
+    declare parent: AppScreen;
+
+    /** List of contained parallaxes. */
+    public parallaxes: Parallax[] = [];
+
     public pan: XYVal = new XYVal( 0, 0 );
-    public panAmount = new XYVal( 30, 30 );
+    public perspective = new XYVal( 30, 30 );
 
     /** What is the difference between depth 0 and depth 1? */
     public _depthScaleFactor: number = 0;
@@ -35,20 +41,7 @@ export class Parallaxes extends Container {
          this.parallaxes.map( item => item.applyParentOverlay( value ) );
      }
 
-    /** What is the difference between depth 0 and depth 1? */
-    public _depthShadowFactor: number = 0;
-    public get depthShadowFactor() { return this._depthScaleFactor; }
-    public set depthShadowFactor( value: number ) {
-        this._depthShadowFactor = value;
-        this.parallaxes.map( item => item.applyParentShadow( value ) );
-    }
-
-    /** What is the influence of the pan? */
-    public _panAmount: number = 1;
-
-    // declare children: Parallax[];
-
-    public parallaxes: Parallax[] = [];
+    
 
     constructor(
         /** The overall depth of the parallax set */
@@ -64,23 +57,6 @@ export class Parallaxes extends Container {
 
         this.position.set( app.screen.width / 2, app.screen.height / 2 );
 
-
-        window.addEventListener( "keydown", event => {
-    
-            if ( event.key === "ArrowLeft" ) {
-                this.pan.x -= 1;
-            }
-            if ( event.key === "ArrowRight" ) {
-                this.pan.x += 1;
-            }
-            if ( event.key === "ArrowDown" ) {
-                this.pan.y += 1;
-            }
-            if ( event.key === "ArrowUp" ) {
-                this.pan.y -= 1;
-            }
-        } );
-
         if ( this.bg ) {
             const bg = new Sprite( this.bg );
             bg.anchor.set(.5);
@@ -95,6 +71,7 @@ export class Parallaxes extends Container {
         this.parallaxes.map( item => item.applyParentOverlay( color ) );
     }
 
+    /** Parallaxes must be added only after the parallax itself is added to the scene. */
     public addParallax( item: Parallax, options?: {
         x?: number,
         y?: number,
@@ -107,7 +84,7 @@ export class Parallaxes extends Container {
         this.addChild( item );
         this.parallaxes.push( item );
 
-        item.bind();
+        item.addListeners();
 
         if ( options ) {
             if ( options.width ) item.dimension.x = options.width;
@@ -120,7 +97,7 @@ export class Parallaxes extends Container {
 
         item.applyParentDepth( this.depthScaleFactor );
 
-        item.draw();
+        item.mount();
 
     }
 

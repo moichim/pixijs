@@ -18,7 +18,7 @@ import { Parallax } from "../parallax";
  */
 export class ColorParallax extends Parallax {
 
-    declare graphics: Graphics;
+    declare content: Graphics;
     public sprite!: Sprite;
 
 
@@ -26,17 +26,17 @@ export class ColorParallax extends Parallax {
         super();
     }
 
-    createGraphics() {
+    createContentElement() {
         return new Graphics();
     }
 
 
-    public draw() {
-        this.graphics.x = -this.dimension.x / 2;
-        this.graphics.y = -this.dimension.y / 2;
+    public mount() {
+        this.content.x = -this.dimension.x / 2;
+        this.content.y = -this.dimension.y / 2;
 
-        this.graphics.beginFill( this.color );
-        this.graphics.drawRect( 0, 0, this.dimension.x, this.dimension.y );
+        this.content.beginFill( this.color );
+        this.content.drawRect( 0, 0, this.dimension.x, this.dimension.y );
     }
 
 }

@@ -27,7 +27,7 @@ export class SpriteParallax extends Parallax {
         
     }
 
-    createGraphics() {
+    createContentElement() {
 
         return new Container();
     
@@ -36,15 +36,14 @@ export class SpriteParallax extends Parallax {
     
 
 
-    public draw() {
+    public mount() {
 
         this.sprite = new Sprite( this.image );
         this.sprite.pivot.set( .5 );
         this.sprite.anchor.set( .5);
         this.sprite.x = -100;
 
-        this.graphics.addChild(  this.sprite );
-
+        this.content.addChild( this.sprite );
 
     }
 

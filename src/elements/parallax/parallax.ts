@@ -18,28 +18,37 @@ import { app } from "../../main";
  */
 export abstract class Parallax extends Container {
 
-    public amount: number = 1;
-
     declare parent: Parallaxes;
 
+    // Containers
+
+    /** Container handling the pan (the xy shift depending on the global pan) */
     public panner: Container = new Container;
-    public centerer: Container = new Container;
+    /** Container handling the position relative to the scene */
+    public positioner: Container = new Container;
+    /** Main content of the parallax */
+    public content!: Container;
 
-    public graphics!: Container;
+    // Movable attributes
 
+    /** The optional content size */
     public dimension = new XYVal();
+    /** Mirror of the current pan */
     public pan: XYVal = new XYVal();
+    /** Position relative to the scene. Manifests itself in `this.positioner` */
     public pos: XYVal = new XYVal();
 
-    public tween = new Tween( this );
+    /** Animation instance */
+    public tween!: Tween<Parallax>;
 
-    public blur = new BlurFilter( 0 );
+    // Filters
+
+    public blur = new BlurFilter( 0, 2 );
     public overlay = new ColorOverlayFilter( 0xff00ff, 0 );
-    public shadow = new DropShadowFilter( {
-        alpha: 0,
-        offset: {x:0,y:0},
-        blur: 5
-    } );
+
+    // State variables
+
+    protected binded: boolean = false;
 
     public constructor() {
         super();
@@ -50,22 +59,21 @@ export abstract class Parallax extends Container {
         this.panner.pivot.set( 0.5 );
 
         // Setup centerer
-        this.centerer.pivot.set( 0.5 );
+        this.positioner.pivot.set( 0.5 );
 
         // Setup graphics
-        this.graphics = this.createGraphics();
-        this.graphics.pivot.set( 0.5 );
+        this.content = this.createContentElement();
+        this.content.pivot.set( 0.5 );
 
         // Bind it all together
-        this.panner.addChild( this.centerer );
-        this.centerer.addChild( this.graphics );
+        this.panner.addChild( this.positioner );
+        this.positioner.addChild( this.content );
         this.addChild( this.panner );
 
         // Apply filters
-        this.graphics.filters = [ 
+        this.content.filters = [ 
             this.overlay, 
-            this.blur,
-            this.shadow
+            this.blur
         ];
 
         this.tween = new Tween( this );
@@ -78,7 +86,7 @@ export abstract class Parallax extends Container {
         const rotate = (Math.random() - 2 + 1 ) * 0.1;
 
         this.tween.to( { 
-            graphics: {
+            content: {
                 x: limit,
                 rotation: rotate
             },
@@ -88,18 +96,62 @@ export abstract class Parallax extends Container {
             .start();
 
         app.ticker.add( () => {
-            this.tween.update()
+            // this.tween.update()
         } );
 
     }
 
-    protected abstract createGraphics(): Container;
+    /** Build the main content. CALLED IN CONSTRUCTOR => NO PARENT CALLS */
+    protected abstract createContentElement(): Container;
+
+    /** Activates listeners after this item is binded to its parent. */
+    public addListeners() {
+
+        if ( this.binded === false ) {
+
+            this.overlay.color = this.parent.bgColor;
+
+            /** What to do when `pan.x` is changed. */
+            this.pan.onX = ( value ) => {
+                this.panner.x = value * this.parent.perspective.x;
+            }
+
+            /** What to do when `pan.y` is changed. */
+            this.pan.onY = ( value ) => {
+                this.panner.y = value * this.parent.perspective.y;
+            }
+
+            /** What to do when `pos.x` is changed. */
+            this.pos.onX = ( value ) => {
+                this.positioner.x = value;
+            }
+
+            /** What to do when `pos.y` is changed. */
+            this.pos.onY = ( value ) => {
+                this.positioner.y = value;
+            }
+
+            /** What to do when `dimension.x` changes. @todo */
+            this.dimension.onX = () => {
+                // this.mount();
+            }
+
+            /** What to do when `dimension.y` changes. @todo */
+            this.dimension.onY = () => {
+            }
+
+
+        }
+
+    }
+
+    /** Draw the content to the screen */
+    public abstract mount(): void;
 
     protected _color: number = 0xffffff;
     public get color() { return this._color; }
     public set color( value: number ) {
         this._color = value;
-        this.draw();
     }
 
     public get overlayColor() {
@@ -117,8 +169,6 @@ export abstract class Parallax extends Container {
         return;
 
     }
-
-    protected d: number = 0;
 
     protected _depthScale = 1;
 
@@ -173,58 +223,15 @@ export abstract class Parallax extends Container {
     }
 
     public applyParentOverlay( value: number ) {
-        this.overlay.alpha = value * this.depth; // this.getNegativeAspect( value );
+        this.overlay.alpha = value * this.depth;
     }
-
-    public applyParentShadow( value: number ) {
-        this.shadow.alpha = value;
-    }
-
-    protected binded: boolean = false;
 
     
 
-    public bind() {
+    
 
-        if ( this.binded === false ) {
+    
 
-            this.overlay.color = this.parent.bgColor;
-
-            this.pan.onX = ( value ) => {
-                
-                // Nastaví pozici grafiky
-                this.panner.x = value * this.parent.panAmount.x;
-
-            }
-
-            this.pan.onY = ( value ) => {
-                
-                // Nastaví pozici grafiky
-                this.panner.y = value * this.parent.panAmount.y;
-
-            }
-
-            this.pos.onX = ( value ) => {
-                
-                this.centerer.x = value;
-            }
-
-            this.pos.onY = ( value ) => {
-                this.centerer.y = value;
-            }
-
-            this.dimension.onX = () => {
-                this.draw();
-            }
-            this.dimension.onY = () => {
-                this.draw();
-            }
-
-
-        }
-
-    }
-
-    public abstract draw(): void;
+    
 
 }

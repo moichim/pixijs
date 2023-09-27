@@ -5,7 +5,7 @@ import { pool } from "./pool";
 
 export interface AppScreen extends PIXI.Container {
 
-    assets?: {
+    assets: {
         [index:string]: PIXI.Texture<PIXI.Resource>
     }
 

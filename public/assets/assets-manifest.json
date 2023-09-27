@@ -2,7 +2,62 @@
   "bundles": [
     {
       "name": "default",
-      "assets": []
+      "assets": [
+        {
+          "name": "bg.jpg",
+          "srcs": [
+            "bg.jpg"
+          ]
+        },
+        {
+          "name": "bird.json",
+          "srcs": [
+            "bird.json"
+          ]
+        },
+        {
+          "name": "bird.png",
+          "srcs": [
+            "bird.png"
+          ]
+        },
+        {
+          "name": "free.png",
+          "srcs": [
+            "free.png"
+          ]
+        },
+        {
+          "name": "paper.png",
+          "srcs": [
+            "paper.png"
+          ]
+        },
+        {
+          "name": "paper_1.png",
+          "srcs": [
+            "paper_1.png"
+          ]
+        },
+        {
+          "name": "paper_2.png",
+          "srcs": [
+            "paper_2.png"
+          ]
+        },
+        {
+          "name": "paper_3.png",
+          "srcs": [
+            "paper_3.png"
+          ]
+        },
+        {
+          "name": "sprite.png",
+          "srcs": [
+            "sprite.png"
+          ]
+        }
+      ]
     }
   ]
 }
