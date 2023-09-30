@@ -2,36 +2,7 @@ import * as PIXI from "pixi.js";
 import { app } from "../main";
 import { areBundlesLoaded, loadBundles } from "./assets";
 import { pool } from "./pool";
-
-export interface AppScreen extends PIXI.Container {
-
-    assets: {
-        [index:string]: PIXI.Texture<PIXI.Resource>
-    }
-
-    container: PIXI.Container;
-
-    show?(): Promise<void>;
-
-    hide?(): Promise<void>;
-
-    pause?(): Promise<void>;
-
-    resume?(): Promise<void>;
-
-    prepare?(): Promise<void>;
-
-    reset?(): Promise<void>;
-
-    update?( delta: number ): void;
-
-    resize?( width: number, height: number ): void;
-
-    blur?(): void;
-
-    focus?(): void;
-
-}
+import { AppScreen } from "../structure/AppScreen";
 
 export abstract class AbstractScreen extends PIXI.Container implements AppScreen {
 

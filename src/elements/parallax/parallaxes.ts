@@ -3,7 +3,7 @@ import { Container, Resource, Sprite, Texture } from "pixi.js";
 import { app } from "../../main";
 import { Parallax } from "./parallax";
 import { XYVal } from "../../utils/XYVal";
-import { AppScreen } from "../../utils/routing";
+import { AppScreen } from "../../structure/AppScreen";
 
 export class Parallaxes extends Container {
 

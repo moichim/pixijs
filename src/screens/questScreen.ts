@@ -6,6 +6,9 @@ import { SpriteParallax } from "../elements/parallax/parallaxes/spriteParallax";
 import { AbstractScreen } from "../utils/routing";
 import { QuestParallax } from "../elements/quest/questParallax";
 import { app } from "../main";
+import { TestObject } from "../structure/TestObject";
+import { Scene } from "../Assets/Scopes";
+import { Bundle } from "../Assets/Bundle";
 
 export class QuestScreen extends AbstractScreen {
 
@@ -35,6 +38,44 @@ export class QuestScreen extends AbstractScreen {
     }
 
     async show(): Promise<void> {
+
+        const scene: Scene = {
+            background: "dummy",
+            transitions: ["dummy"],
+            layers: [
+                {
+                    land: ["dummy", "normal"],
+                    agents: "normal"
+                },
+                {
+                    land: ["dummy","normal"],
+                    agents: "dummy"
+                },
+                {
+                    land: "dummy",
+                    agents: ["dummy", "normal"]
+                }
+            ],
+            color: {
+                primary: 0xffffff,
+                highlight: 0x000000
+            },
+            borders: "dummy"
+        }
+
+        
+
+        // const go = new TestObject;
+        // const sub = new TestObject;
+
+        // go.addGameObject( sub, true, false );
+
+        // go.show();
+        // go.show();
+
+        // this.addChild( new TestObject );
+
+        // go.destroy();
 
         const parallaxes = new Parallaxes();
 

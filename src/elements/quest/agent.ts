@@ -57,6 +57,8 @@ export class Agent extends Container {
 
         this.sprite.interactive = true;
         this.sprite.on( "mousedown", (event) => {
+
+            console.log( "hit!", this );
             this.stopAnimations();
             this.tweening = !this.tweening;
 
