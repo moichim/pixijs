@@ -1,5 +1,6 @@
 import { Bundle } from "../../Assets/Bundle";
 import { Scene } from "../../Assets/Scopes";
+import { app } from "../../main";
 import { GameObject } from "../GameObject";
 import { StaticTick } from "../Tick/StaticTick";
 /** Do nto forget to call super methods! */
@@ -16,18 +17,22 @@ export abstract class GameScreen extends GameObject {
 
     constructor() {
         super();
-        this.bundle = new Bundle( this.getAssets(), this );
+        this.bundle = new Bundle( this.getStoredAssetsDefinition(), this );
     }
 
     /** Define the scene assets */
     abstract getAssetsDefinition(): Scene;
 
-    protected getAssets() {
+    protected getStoredAssetsDefinition() {
         
         if ( this.definition === undefined )
             this.definition = this.getAssetsDefinition();
 
         return this.definition;
+    }
+
+    public get assets() {
+        return this.bundle;
     }
 
     async inAlone() {
@@ -59,6 +64,8 @@ export abstract class GameScreen extends GameObject {
 
     protected onInit(): void {
 
+        this.position.set( app.screen.width / 2, app.screen.height / 2 );
+
         this.ticks.add( this.watch );
 
         this.watch.callback = () => {
@@ -76,7 +83,12 @@ export abstract class GameScreen extends GameObject {
     public async load() {
         return this.bundle.load().then( () => {
             this.loaded = true;
+            this.onLoad();
         });
+    }
+
+    public onLoad() {
+
     }
 
     sleep(ms:number) {
@@ -85,8 +97,8 @@ export abstract class GameScreen extends GameObject {
 
     protected onActivate(): void {
 
-        this.bundle.borders.appendImages();
         this.bundle.borders.setOpenProperties();
+        this.bundle.borders.appendImages();
     }
 
     protected async onDeactivate(): Promise<GameObject> {

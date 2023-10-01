@@ -41,6 +41,20 @@ export class LayerAssets {
         [A in typeof layers[number]]?: Land
     } = {}
 
+    protected buffer: {
+        land: ( typeof layers[number] )[],
+        agents: {
+            big: ( typeof agents["big"][number] )[],
+            small: ( typeof agents["small"][number] )[]
+        } 
+    }   = {
+        land: [],
+        agents: {
+            big: [],
+            small: []
+        }
+    }
+
     constructor(
         public readonly definition: Layer
     ) {
@@ -73,12 +87,46 @@ export class LayerAssets {
     getLand( land: typeof layers[number] ) {
 
         const scope = this.selections.lands[land];
-        const key = `${land}___${scope}`;
 
         return {
-            texture: Assets.get(key),
+            texture: Assets.get(scope as string),
             scope: scope
         }
+
+    }
+
+    getRandomLand(): ReturnType<LayerAssets["getLand"]> {
+
+        // Sarch from lands that were not selected yet
+
+        // If empty, clear the buffer and search again
+
+        let selection: false|(typeof layers[number]) = false;
+        
+
+        const options = Object.values( layers )
+            .filter( ( layer ) => ! this.buffer.land.includes( layer as typeof layers[number]) )
+
+        if ( options.length === 0 ) {
+            this.buffer.land = [];
+        }
+        
+        else if ( options.length === 1 ) {
+            selection = options[0] as typeof layers[number];
+        }
+
+        else {
+            selection = options[ Math.floor( Math.random() * options.length ) ] as typeof layers[number];
+        }
+
+        console.log( "Vybral jsem", selection );
+
+        if ( selection ) {
+            this.buffer.land.push( selection );
+            return this.getLand( selection );
+        }
+
+        return this.getRandomLand();
 
     }
 

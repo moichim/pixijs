@@ -1,13 +1,11 @@
-import { Application, Container, Rectangle, Sprite } from 'pixi.js';
-import { routing } from './utils/routing';
-import { QuestScreen } from './screens/questScreen';
-import { update } from '@tweenjs/tween.js';
-import { animationManager } from './utils/animations';
+import { DraftScene } from './screens/DraftScene';
+import { DummyScene } from './screens/DummyScene';
+import { NormalScene } from './screens/NormalScene';
+import { ParallaxScene } from './screens/ParallaxScene';
+import { RandomScene } from './screens/RandomScene';
 import { Game } from './structure/Game';
 import { GameObject } from './structure/GameObject';
-import { NewScreen } from './screens/NewScreen';
-import { AnotherScreen } from './screens/AnotherScreen';
-import { DummyScene } from './screens/DummyScene';
+import { animationManager } from './utils/animations';
 
 /** The PixiJS app Application instance, shared across the project */
 export const app = new Game<HTMLCanvasElement>({
@@ -16,6 +14,7 @@ export const app = new Game<HTMLCanvasElement>({
     width: 1200,//window.innerWidth,
     height: 800, //window.innerHeight,
     hello: true,
+    backgroundAlpha: 0
     
 });
 
@@ -35,14 +34,29 @@ async function init() {
 
     GameObject.inject( app.manager, app.stage )
 
-    app.manager.mountScreen( new DummyScene );
+    app.manager.mountScreen( RandomScene.getValleySceene() );
 
-    setInterval( () => {
-        app.manager.mountScreen( new DummyScene );
-    }, 14000 );
+    app.manager.on( "mousedown", () => {
+        app.manager.mountScreen( RandomScene.getValleySceene() )
+    } )
+
+    window.addEventListener( "keydown", event => {
+        if ( event.key === "r" ) {
+            app.manager.mountScreen( RandomScene.getValleySceene() );
+        } else if ( event.key === "q" ) {
+            app.manager.mountScreen( DummyScene.getValleySceene() )
+        }
+        else if ( event.key === "w" ) {
+            app.manager.mountScreen( NormalScene.getValleySceene() )
+        }
+        else if ( event.key === "e" ) {
+            app.manager.mountScreen( DraftScene.getValleySceene() )
+        }
+    } );
 
     
 }
+
 
 // Init everything
 init();

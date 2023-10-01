@@ -1,4 +1,3 @@
-import { app } from "../../main";
 import { GameObject } from "../GameObject";
 import { TickItem } from "./TickItem";
 

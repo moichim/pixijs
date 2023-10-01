@@ -4,7 +4,7 @@ export class ScreenFactory {
 
     protected static scenes = [ "dummy", "normal", "draft" ];
 
-    protected static colors = [ 0xffffff, 0xfffccc, 0x345abc ];
+    protected static colors = [ 0xdaf999, 0xfffccc, 0x345abc ];
 
 
 
@@ -22,6 +22,25 @@ export class ScreenFactory {
                 return {
                     land: ScreenFactory.pickScene(),
                     agents: ScreenFactory.pickScene(),
+                }
+            } )
+        }
+    }
+
+    public static getMonoScene( key: string ): Scene
+    {
+        return {
+            background: key,
+            borders: key,
+            color: {
+                primary: ScreenFactory.pickColor(),
+                highlight: ScreenFactory.pickColor()
+            },
+            transitions: key,
+            layers: [1,2,3,4,5].map( () => {
+                return {
+                    land: key,
+                    agents: key,
                 }
             } )
         }

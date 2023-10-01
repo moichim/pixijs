@@ -1,7 +1,6 @@
-import { Container, DisplayObject } from "pixi.js";
-import { GameScreen } from "./GameScreen";
 import { app } from "../../main";
 import { GameObject } from "../GameObject";
+import { GameScreen } from "./GameScreen";
 
 export class GameScreenManager extends GameObject {
     
@@ -27,22 +26,26 @@ export class GameScreenManager extends GameObject {
     mountScreen( screen: GameScreen ) {
 
         
+        app.manager.interactive = false;
+        app.manager.interactiveChildren = false;
+
+
         this.currentScreen = this.pendingScreen;
         this.pendingScreen = this.addGameObject( screen, false, false );
 
         if ( this.currentScreen )
-            this.currentScreen.outTo( this.pendingScreen ).then( () => {
+            return this.currentScreen.outTo( this.pendingScreen ).then( () => {
 
                 this.pendingScreen!.hasSpace = true;
 
+                app.manager.interactive = true;
+                app.manager.interactiveChildren = true;
+
+                return;
+
             } );
-        else
-            this.pendingScreen.inAlone()
+        else 
+            return this.pendingScreen.inAlone();
         
     }
-
-    protected destroyScreen( screen: GameScreen ) {
-
-    }
-
 }

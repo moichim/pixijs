@@ -62,9 +62,11 @@ export class Borders {
             this.prepareTransitionElement( i );
         }
 
+        this.setBorderProperties();
+
         // Initialise base properties
         // if ( this.borderElements.get( "border_bottom" )?.style.transition == "" ) 
-            this.setClosedProperties();
+            this.setinitialProperties();
 
     }
 
@@ -102,11 +104,12 @@ export class Borders {
     }
 
     public setinitialProperties() {
-        this.setBorderProperties();
         this.setClosedProperties();
+        this.setBorderProperties();
     }
 
     public setBorderProperties() {
+
         Object.keys( this.selection.borders ).map( key => {
 
             let element = this.borderElements.get( key as typeof borders[number] )!;
@@ -114,6 +117,7 @@ export class Borders {
             const cssValue = this.borderPositions[key as typeof borders[number]];
             element.style.maskPosition = cssValue;
             element.style.webkitMaskPosition = cssValue;
+            element.style.position = "relative";
 
         } );
     }
@@ -125,6 +129,7 @@ export class Borders {
             const cssValue = this.transitionPositions["close"][`transition_${index}` as keyof ThisParameterType<"transitionPositions"> ];
             element.style.maskPosition = cssValue;
             element.style.webkitMaskPosition = cssValue;
+            element.style.position = "relative";
 
         } );
 
@@ -136,6 +141,7 @@ export class Borders {
             const cssValue = this.transitionPositions["open"][`transition_${index}` as keyof ThisParameterType<"transitionPositions"> ];
             element.style.maskPosition = cssValue;
             element.style.webkitMaskPosition = cssValue;
+            element.style.position = "relative";
 
         } );
     }

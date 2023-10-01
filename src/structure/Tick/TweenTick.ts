@@ -1,8 +1,7 @@
 import { Tween } from "@tweenjs/tween.js";
-import { GameObject } from "../GameObject";
+import { Container } from "pixi.js";
 import { app } from "../../main";
 import { TickItem } from "./TickItem";
-import { Container } from "pixi.js";
 
 export class TweenTick<T extends Container = Container> implements TickItem {
 
