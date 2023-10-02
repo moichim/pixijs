@@ -1,11 +1,9 @@
 import { DraftScene } from './screens/DraftScene';
 import { DummyScene } from './screens/DummyScene';
 import { NormalScene } from './screens/NormalScene';
-import { ParallaxScene } from './screens/ParallaxScene';
 import { RandomScene } from './screens/RandomScene';
 import { Game } from './structure/Game';
 import { GameObject } from './structure/GameObject';
-import { animationManager } from './utils/animations';
 
 /** The PixiJS app Application instance, shared across the project */
 export const app = new Game<HTMLCanvasElement>({
@@ -17,12 +15,6 @@ export const app = new Game<HTMLCanvasElement>({
     backgroundAlpha: 0
     
 });
-
-
-
-app.ticker.add( (dt) => {
-    animationManager.update();
-} );
 
 /** Setup app and initialise assets */
 async function init() {
@@ -63,4 +55,6 @@ init();
 
 // Debugging
 // https://addons.mozilla.org/en-US/firefox/addon/pixijs-devtools/
+
+// @ts-ignore
 globalThis.__PIXI_APP__ = app;

@@ -1,7 +1,6 @@
 import { LayerAssets } from "../Assets/LayerAssets";
 import { Colors } from "../Assets/Scopes";
 import { app } from "../main";
-import { GameObject } from "../structure/GameObject";
 import { ParallaxLayer } from "../structure/Layer/ParallaxLayer";
 import { GameScreenManager } from "../structure/Screen/GameScreenManager";
 import { XYVal } from "../utils/XYVal";
@@ -46,15 +45,15 @@ export class ParallaxScene extends BackgroundScene {
 
         const scene = item.getStoredAssetsDefinition();
 
-        item.addLayer( 0, 5, item.assets.layers[4], scene.color, -170, true );
+        item.addLayer( 0, 5, item.assets.layers[4], scene.color, -200, true );
 
-        item.addLayer( 1, 3.5, item.assets.layers[3], scene.color, -40, false );
+        item.addLayer( 1, 3.5, item.assets.layers[3], scene.color, -120, false );
 
         item.addLayer( 2, 2, item.assets.layers[2], scene.color, -20, false );
 
-        item.addLayer( 3, 0, item.assets.layers[1], scene.color, -100, false );
+        item.addLayer( 3, 0, item.assets.layers[1], scene.color, 100, false );
 
-        item.addLayer( 4, -1.5, item.assets.layers[0], scene.color, -280, false );
+        item.addLayer( 4, -1.5, item.assets.layers[0], scene.color, 230, false );
 
         return item;
 
@@ -116,25 +115,6 @@ export class ParallaxScene extends BackgroundScene {
 
     public onLoad() {
         this.layers.forEach( layer => layer.show() );
-    }
-
-    protected async onShow(): Promise<GameObject> {
-
-        // Debugovací
-        this.layers.forEach( ( layer, index ) => {
-
-            const amount = this.layers.length - index;
-
-            const by = ( 200 * index ) + -400;
-
-            layer.pos.y = by;
-
-            // layer.pos.x = ( ( Math.random() * 2 ) - 1 ) * 500;
-            // layer.pos.y = ( ( Math.random() * 2 ) - 1 ) * 500;
-        } );
-        
-
-        return this;
     }
 
     

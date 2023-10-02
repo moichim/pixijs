@@ -1,5 +1,3 @@
-import { app } from "../main";
-import { Game } from "../structure/Game";
 import { Bundle, borders } from "./Bundle";
 
 

@@ -1,9 +1,8 @@
 import { Assets } from "pixi.js";
-import { Scene, SelectableScope } from "./Scopes";
-import { LayerAssets } from "./LayerAssets";
-import { app } from "../main";
-import { BorderSelection, Borders } from "./Borders";
 import { GameScreen } from "../structure/Screen/GameScreen";
+import { Borders } from "./Borders";
+import { LayerAssets } from "./LayerAssets";
+import { Scene, SelectableScope } from "./Scopes";
 
 export const agents = {
     big: ["agent_1_big","agent_2_big","agent_3_big"] as ("agent_1_big"|"agent_2_big"|"agent_3_big")[],

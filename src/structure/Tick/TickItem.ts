@@ -1,4 +1,4 @@
-import { Container, DisplayObject } from "pixi.js"
+import { Container } from "pixi.js"
 
 export interface TickItem {
     key: string,

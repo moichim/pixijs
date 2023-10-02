@@ -1,12 +1,12 @@
-import { BlurFilter, Container, Sprite } from "pixi.js";
-import { Colors, Layer } from "../../Assets/Scopes";
+import { ColorOverlayFilter } from "pixi-filters";
+import { BlurFilter, Sprite } from "pixi.js";
+import { LayerAssets } from "../../Assets/LayerAssets";
+import { Colors } from "../../Assets/Scopes";
+import { app } from "../../main";
 import { ParallaxScene } from "../../screens/ParallaxScene";
+import { XYVal } from "../../utils/XYVal";
 import { ContainerGameObject } from "../ContainerGameObject";
 import { GameObject } from "../GameObject";
-import { XYVal } from "../../utils/XYVal";
-import { app } from "../../main";
-import { LayerAssets } from "../../Assets/LayerAssets";
-import { ColorOverlayFilter } from "pixi-filters";
 import { TweenTick } from "../Tick/TweenTick";
 
 export class ParallaxLayer extends GameObject {

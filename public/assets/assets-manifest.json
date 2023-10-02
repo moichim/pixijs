@@ -22,6 +22,312 @@
           ]
         },
         {
+          "name": "bundles/draft/agent_1_big.png",
+          "srcs": [
+            "bundles/draft/agent_1_big.png"
+          ]
+        },
+        {
+          "name": "bundles/draft/agent_1_small.png",
+          "srcs": [
+            "bundles/draft/agent_1_small.png"
+          ]
+        },
+        {
+          "name": "bundles/draft/agent_2_big.png",
+          "srcs": [
+            "bundles/draft/agent_2_big.png"
+          ]
+        },
+        {
+          "name": "bundles/draft/agent_2_small.png",
+          "srcs": [
+            "bundles/draft/agent_2_small.png"
+          ]
+        },
+        {
+          "name": "bundles/draft/agent_3_big.png",
+          "srcs": [
+            "bundles/draft/agent_3_big.png"
+          ]
+        },
+        {
+          "name": "bundles/draft/agent_3_small.png",
+          "srcs": [
+            "bundles/draft/agent_3_small.png"
+          ]
+        },
+        {
+          "name": "bundles/draft/bg.jpg",
+          "srcs": [
+            "bundles/draft/bg.jpg"
+          ]
+        },
+        {
+          "name": "bundles/draft/border_bottom.png",
+          "srcs": [
+            "bundles/draft/border_bottom.png"
+          ]
+        },
+        {
+          "name": "bundles/draft/border_left.png",
+          "srcs": [
+            "bundles/draft/border_left.png"
+          ]
+        },
+        {
+          "name": "bundles/draft/border_right.png",
+          "srcs": [
+            "bundles/draft/border_right.png"
+          ]
+        },
+        {
+          "name": "bundles/draft/border_top.png",
+          "srcs": [
+            "bundles/draft/border_top.png"
+          ]
+        },
+        {
+          "name": "bundles/draft/layer_1.png",
+          "srcs": [
+            "bundles/draft/layer_1.png"
+          ]
+        },
+        {
+          "name": "bundles/draft/layer_2.png",
+          "srcs": [
+            "bundles/draft/layer_2.png"
+          ]
+        },
+        {
+          "name": "bundles/draft/layer_3.png",
+          "srcs": [
+            "bundles/draft/layer_3.png"
+          ]
+        },
+        {
+          "name": "bundles/draft/layer_4.png",
+          "srcs": [
+            "bundles/draft/layer_4.png"
+          ]
+        },
+        {
+          "name": "bundles/draft/layer_5.png",
+          "srcs": [
+            "bundles/draft/layer_5.png"
+          ]
+        },
+        {
+          "name": "bundles/draft/transition.png",
+          "srcs": [
+            "bundles/draft/transition.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/agent_1_big.png",
+          "srcs": [
+            "bundles/dummy/agent_1_big.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/agent_1_small.png",
+          "srcs": [
+            "bundles/dummy/agent_1_small.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/agent_2_big.png",
+          "srcs": [
+            "bundles/dummy/agent_2_big.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/agent_2_small.png",
+          "srcs": [
+            "bundles/dummy/agent_2_small.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/agent_3_big.png",
+          "srcs": [
+            "bundles/dummy/agent_3_big.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/agent_3_small.png",
+          "srcs": [
+            "bundles/dummy/agent_3_small.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/bg.jpg",
+          "srcs": [
+            "bundles/dummy/bg.jpg"
+          ]
+        },
+        {
+          "name": "bundles/dummy/border_bottom.png",
+          "srcs": [
+            "bundles/dummy/border_bottom.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/border_left.png",
+          "srcs": [
+            "bundles/dummy/border_left.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/border_right.png",
+          "srcs": [
+            "bundles/dummy/border_right.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/border_top.png",
+          "srcs": [
+            "bundles/dummy/border_top.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/layer_1.png",
+          "srcs": [
+            "bundles/dummy/layer_1.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/layer_2.png",
+          "srcs": [
+            "bundles/dummy/layer_2.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/layer_3.png",
+          "srcs": [
+            "bundles/dummy/layer_3.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/layer_4.png",
+          "srcs": [
+            "bundles/dummy/layer_4.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/layer_5.png",
+          "srcs": [
+            "bundles/dummy/layer_5.png"
+          ]
+        },
+        {
+          "name": "bundles/dummy/transition.png",
+          "srcs": [
+            "bundles/dummy/transition.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/agent_1_big.png",
+          "srcs": [
+            "bundles/normal/agent_1_big.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/agent_1_small.png",
+          "srcs": [
+            "bundles/normal/agent_1_small.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/agent_2_big.png",
+          "srcs": [
+            "bundles/normal/agent_2_big.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/agent_2_small.png",
+          "srcs": [
+            "bundles/normal/agent_2_small.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/agent_3_big.png",
+          "srcs": [
+            "bundles/normal/agent_3_big.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/agent_3_small.png",
+          "srcs": [
+            "bundles/normal/agent_3_small.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/bg.jpg",
+          "srcs": [
+            "bundles/normal/bg.jpg"
+          ]
+        },
+        {
+          "name": "bundles/normal/border_bottom.png",
+          "srcs": [
+            "bundles/normal/border_bottom.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/border_left.png",
+          "srcs": [
+            "bundles/normal/border_left.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/border_right.png",
+          "srcs": [
+            "bundles/normal/border_right.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/border_top.png",
+          "srcs": [
+            "bundles/normal/border_top.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/layer_1.png",
+          "srcs": [
+            "bundles/normal/layer_1.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/layer_2.png",
+          "srcs": [
+            "bundles/normal/layer_2.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/layer_3.png",
+          "srcs": [
+            "bundles/normal/layer_3.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/layer_4.png",
+          "srcs": [
+            "bundles/normal/layer_4.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/layer_5.png",
+          "srcs": [
+            "bundles/normal/layer_5.png"
+          ]
+        },
+        {
+          "name": "bundles/normal/transition.png",
+          "srcs": [
+            "bundles/normal/transition.png"
+          ]
+        },
+        {
           "name": "free.png",
           "srcs": [
             "free.png"
