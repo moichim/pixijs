@@ -1,9 +1,13 @@
+import { AssetsManager } from './Bundler/AssetsManager';
+import { SceneFactory } from './Bundler/SceneFactory';
 import { DraftScene } from './screens/DraftScene';
-import { DummyScene } from './screens/DummyScene';
+import { DummyScene } from './scenes/DummyScene';
 import { NormalScene } from './screens/NormalScene';
 import { RandomScene } from './screens/RandomScene';
 import { Game } from './structure/Game';
 import { GameObject } from './structure/GameObject';
+import { GameScene } from './structure/Screen/GameScene';
+import { GameScreenManager } from './structure/Screen/GameScreenManager';
 
 /** The PixiJS app Application instance, shared across the project */
 export const app = new Game<HTMLCanvasElement>({
@@ -16,6 +20,8 @@ export const app = new Game<HTMLCanvasElement>({
     
 });
 
+export const assets = new AssetsManager();
+
 /** Setup app and initialise assets */
 async function init() {
 
@@ -23,6 +29,19 @@ async function init() {
 
     // Add pixi canvas element (app.view) to the document's body
     document.getElementById( "App" )!.appendChild(app.view);
+
+    const scene = new DummyScene("dummy");
+
+    scene.factory.addLayer( 0, "layer_2" );
+    scene.factory.addLayer( 1, "layer_3", "normal", {y:300} );
+
+    app.manager.mountScreen( scene );
+
+    GameObject.inject( app.manager, app.stage );
+
+    console.log( scene );
+
+    /*
 
     GameObject.inject( app.manager, app.stage )
 
@@ -45,6 +64,8 @@ async function init() {
             app.manager.mountScreen( DraftScene.getValleySceene() )
         }
     } );
+    )
+    */
 
     
 }

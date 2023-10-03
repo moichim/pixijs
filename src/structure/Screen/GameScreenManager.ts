@@ -1,15 +1,16 @@
 import { app } from "../../main";
 import { GameObject } from "../GameObject";
+import { GameScene } from "./GameScene";
 import { GameScreen } from "./GameScreen";
 
 export class GameScreenManager extends GameObject {
     
 
-    protected currentScreen?: GameScreen;
-    protected pendingScreen?: GameScreen;
+    protected currentScreen?: GameScene;
+    protected pendingScreen?: GameScene;
 
     // All children should ever go here
-    declare children: GameScreen[];
+    declare children: GameScene[];
 
     constructor(  ) {
         super();
@@ -23,7 +24,7 @@ export class GameScreenManager extends GameObject {
     }
 
     /** Screens are mounted invisible as soon as their assets are loaded, they are triggered */
-    mountScreen( screen: GameScreen ) {
+    mountScreen( screen: GameScene ) {
 
         
         app.manager.interactive = false;
@@ -45,7 +46,10 @@ export class GameScreenManager extends GameObject {
 
             } );
         else 
-            return this.pendingScreen.inAlone();
+            return this.pendingScreen.inAlone().then(()=>{
+                app.manager.interactive = true;
+                app.manager.interactiveChildren = true;
+            });
         
     }
 }

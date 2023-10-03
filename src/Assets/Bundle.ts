@@ -133,7 +133,7 @@ export class Bundle {
 
         const key = `${usage}___${s}`;
 
-        const f = `raw-assets/bundles/${s }/${file}`;
+        const f = `assets/bundles/${s }/${file}`;
 
         if ( ! this.ids.includes( key ) ) {
 
