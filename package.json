@@ -16,7 +16,8 @@
         "gsap": "^3.11.4",
         "pixi-filters": "^5.2.1",
         "pixi-spine": "^4.0.3",
-        "pixi.js": "^7.1.1"
+        "pixi.js": "^7.1.1",
+        "ts-deepmerge": "^6.2.0"
     },
     "devDependencies": {
         "@assetpack/cli": "~0.3.4",

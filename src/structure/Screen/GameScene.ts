@@ -1,8 +1,4 @@
-import { Bundle } from "../../Assets/Bundle";
-import { Scene } from "../../Assets/Scopes";
-import { SceneFactory } from "../../Bundler/SceneFactory";
 import { app } from "../../main";
-import { ScreenFactory } from "../../screens/ScreenFactory";
 import { ContainerGameObject } from "../ContainerGameObject";
 import { GameObject } from "../GameObject";
 import { StaticTick } from "../Tick/StaticTick";

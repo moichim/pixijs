@@ -1,7 +1,6 @@
 import { app } from "../../main";
 import { GameObject } from "../GameObject";
 import { GameScene } from "./GameScene";
-import { GameScreen } from "./GameScreen";
 
 export class GameScreenManager extends GameObject {
     

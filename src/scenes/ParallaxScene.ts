@@ -1,8 +1,5 @@
-import { LayerAssets } from "../Assets/LayerAssets";
-import { Colors } from "../Assets/Scopes";
-import { SceneFactory } from "../Bundler/SceneFactory";
+import { SceneFactory } from "../structure/Screen/SceneFactory";
 import { app } from "../main";
-import { ParallaxLayer } from "../structure/Layer/ParallaxLayer";
 import { SceneLayer } from "../structure/Layer/SceneLayer";
 import { GameScene } from "../structure/Screen/GameScene";
 import { GameScreenManager } from "../structure/Screen/GameScreenManager";
@@ -74,16 +71,21 @@ export class ParallaxScene extends GameScene {
 
 
         // Add layers
-        this.factory.getResult().layers.forEach( layer => {
-            console.log( layer );
+        this.factory.getResult().layers
+        
+            // Sort by depth
+            .sort( (a,b) => {
+                if ( a.depth < b.depth ) return 1;
+                else if ( a.depth > b.depth ) return -1;
+                return 0;
+            } )
+            // create layer elements
+            .forEach( layer => {
+                const l = new SceneLayer( layer );
+                this.layerLinks.push( l );
+                this.addGameObject( l );
+            } )
 
-            const l = new SceneLayer( layer );
-            this.layerLinks.push( l );
-            this.addGameObject( l );
-        } )
-
-        // console.log( this.factory.getResult() );
-        // this.layerLinks.forEach( layer => layer.show() );
     }
 
     

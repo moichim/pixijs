@@ -1,14 +1,12 @@
 import { ColorOverlayFilter } from "pixi-filters";
 import { BlurFilter, Sprite } from "pixi.js";
-import { LayerAssets } from "../../Assets/LayerAssets";
-import { Colors } from "../../Assets/Scopes";
+import { LayerDefinition } from "../Screen/SceneFactory";
 import { app } from "../../main";
 import { ParallaxScene } from "../../scenes/ParallaxScene";
 import { XYVal } from "../../utils/XYVal";
 import { ContainerGameObject } from "../ContainerGameObject";
 import { GameObject } from "../GameObject";
 import { TweenTick } from "../Tick/TweenTick";
-import { LayerDefinition } from "../../Bundler/SceneFactory";
 
 export class SceneLayer extends GameObject {
 
@@ -95,13 +93,13 @@ export class SceneLayer extends GameObject {
 
         this.ticks.add( this.tween );
 
-        console.log( this );
-
     }
 
 
     public async onShow() {
         super.onShow && super.onShow();
+
+        console.log( this.definition.land );
 
             const l = new Sprite( this.definition.land!.texture! );
 
