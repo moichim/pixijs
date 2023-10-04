@@ -1,4 +1,4 @@
-import { assets } from "../main";
+import { assets } from "../../main";
 
 type Slot = {
     x: number,

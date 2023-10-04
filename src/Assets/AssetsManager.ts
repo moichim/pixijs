@@ -1,5 +1,7 @@
 import { Assets, Resource, Texture } from "pixi.js";
-import { SimpleFileDefinition } from "./SceneFactory";
+import { SimpleFileDefinition } from "../structure/Screen/SceneFactory";
+import { manifest } from "./manifest";
+import { Bundles, roles } from "./Manifest/Declarations";
 
 type BundledFile = {
     bundle: string,
@@ -33,26 +35,27 @@ export class AssetsManager {
     /** Add a single file */
     public addFile(
         bundle: string,
-        fileName: string,
-        meta: Object|undefined = undefined
+        role: string,
     ) {
 
-        const key = this.formatFileKey( bundle, fileName );
+        const key = this.formatFileKey( bundle, role );
 
-        if ( ! this.fileIsRegistered( bundle, fileName ) ) {
+        const m = manifest.bundles[ bundle as Bundles ].index[ role as typeof roles[number] ]
+
+        if ( ! this.fileIsRegistered( bundle, role ) ) {
 
                 Assets.add( 
                     key,
-                    this.formatFilePath( bundle, fileName ),
-                    meta
+                    this.formatFilePath( bundle, role ),
+                    m
                 );
     
-                return this.register( bundle, fileName, meta );
+                return this.register( bundle, role, m );
 
         }
         
         console.info( `File ${key} was already added.` );
-        return this.getFile( bundle, fileName )!;
+        return this.getFile( bundle, role )!;
 
     }
 
@@ -94,7 +97,7 @@ export class AssetsManager {
 
         return Object.fromEntries( 
             Object.entries( result ) 
-                .map( ([key,entry]:[string,any]) => {
+                .map( ([key]:[string,any]) => {
 
                     const record = this.registry.keys.get( key )!;
                     if ( record.texture === undefined )

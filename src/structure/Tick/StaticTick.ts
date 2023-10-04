@@ -1,6 +1,6 @@
 import { Container } from "pixi.js";
-import { TickItem } from "./TickItem";
 import { app } from "../../main";
+import { TickItem } from "./TickItem";
 
 enum StaticTickState {
     IDLE = 1,
@@ -40,7 +40,6 @@ export class StaticTick<T extends Container = Container> implements TickItem {
 
     unregister() {
         app.removeTick( this.object, this.key, this.update )
-        console.log( app.ticks );
     };
 
     update() {

@@ -328,6 +328,108 @@
           ]
         },
         {
+          "name": "bundles/paper/agent_1_big.png",
+          "srcs": [
+            "bundles/paper/agent_1_big.png"
+          ]
+        },
+        {
+          "name": "bundles/paper/agent_1_small.png",
+          "srcs": [
+            "bundles/paper/agent_1_small.png"
+          ]
+        },
+        {
+          "name": "bundles/paper/agent_2_big.png",
+          "srcs": [
+            "bundles/paper/agent_2_big.png"
+          ]
+        },
+        {
+          "name": "bundles/paper/agent_2_small.png",
+          "srcs": [
+            "bundles/paper/agent_2_small.png"
+          ]
+        },
+        {
+          "name": "bundles/paper/agent_3_big.png",
+          "srcs": [
+            "bundles/paper/agent_3_big.png"
+          ]
+        },
+        {
+          "name": "bundles/paper/agent_3_small.png",
+          "srcs": [
+            "bundles/paper/agent_3_small.png"
+          ]
+        },
+        {
+          "name": "bundles/paper/bg.jpg",
+          "srcs": [
+            "bundles/paper/bg.jpg"
+          ]
+        },
+        {
+          "name": "bundles/paper/border_bottom.png",
+          "srcs": [
+            "bundles/paper/border_bottom.png"
+          ]
+        },
+        {
+          "name": "bundles/paper/border_left.png",
+          "srcs": [
+            "bundles/paper/border_left.png"
+          ]
+        },
+        {
+          "name": "bundles/paper/border_right.png",
+          "srcs": [
+            "bundles/paper/border_right.png"
+          ]
+        },
+        {
+          "name": "bundles/paper/border_top.png",
+          "srcs": [
+            "bundles/paper/border_top.png"
+          ]
+        },
+        {
+          "name": "bundles/paper/layer_1.png",
+          "srcs": [
+            "bundles/paper/layer_1.png"
+          ]
+        },
+        {
+          "name": "bundles/paper/layer_2.png",
+          "srcs": [
+            "bundles/paper/layer_2.png"
+          ]
+        },
+        {
+          "name": "bundles/paper/layer_3.png",
+          "srcs": [
+            "bundles/paper/layer_3.png"
+          ]
+        },
+        {
+          "name": "bundles/paper/layer_4.png",
+          "srcs": [
+            "bundles/paper/layer_4.png"
+          ]
+        },
+        {
+          "name": "bundles/paper/layer_5.png",
+          "srcs": [
+            "bundles/paper/layer_5.png"
+          ]
+        },
+        {
+          "name": "bundles/paper/transition.png",
+          "srcs": [
+            "bundles/paper/transition.png"
+          ]
+        },
+        {
           "name": "free.png",
           "srcs": [
             "free.png"
