@@ -11,10 +11,17 @@ const overrides: ManifestOverride = {
         [Bundles.dummy]: {
             layers: {
                 [Layers.one]: {
-                    shift: { x: -100 }
+                    shift: { x: -100 },
+                    spots: [
+                        {x:100,y:400, rotation: 45},
+                        {x:-500,y:400, rotation: 20}
+                    ]
                 },
                 [Layers.two]: {
-                    shift: { y: -1000 }
+                    shift: { y: -1000 },
+                    spots: [
+                        {x:100,y:300, rotation: 0}
+                    ]
                 }
             },
             agents: {
@@ -32,8 +39,6 @@ export const getBundleFilesManifest = (
     man: ManifestType,
     bundle: Bundles
 ) => {
-
-    // console.log( Object.values( man.bundles[ bundle ] ) );
 
     if ( man.bundles )
         return Object.values( man.bundles[ bundle ] )

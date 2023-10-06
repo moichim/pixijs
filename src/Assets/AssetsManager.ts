@@ -3,7 +3,7 @@ import { SimpleFileDefinition } from "../structure/Screen/SceneFactory";
 import { manifest } from "./manifest";
 import { Bundles, roles } from "./Manifest/Declarations";
 
-type BundledFile = {
+export type BundledFile = {
     bundle: string,
     role: string,
     key: string,
@@ -204,6 +204,7 @@ export class AssetsManager {
         return this.registry.bundles.get( bundle );
     }
 
+    /** Creates instance of files request */
     public request() {
         return new AssetRequest( this );
     }
@@ -220,14 +221,14 @@ class AssetRequest {
 
     }
 
-    addFiles( ...files:SimpleFileDefinition[] ) {
+    addFilesRequest( ...files:SimpleFileDefinition[] ) {
         files.forEach( file => {
             this.files.push( this.manager.addFile( file.bundle, file.role ) );
         } );
         return this;
     }
 
-    async load() {
+    async loadRegisteredAssets() {
         return Assets.load([...this.files.map(file=>file.key)]).then( result => this.manager.postLoad( result ) )
     }
 

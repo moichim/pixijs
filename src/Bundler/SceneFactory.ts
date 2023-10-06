@@ -1,4 +1,4 @@
-import { assets } from "../../main";
+import { assets } from "../main";
 
 type Slot = {
     x: number,
@@ -34,20 +34,15 @@ export class LayerDefinition {
         return this;
     }
 
-    setAgent( role: string, bundleOverride?: string ) {
-        this.agents.set(role, { 
-            bundle: bundleOverride !== undefined 
-                ? bundleOverride 
-                : this.bundle, 
-            role: role 
-        });
+    setAgent( role: string, bundle?: string ) {
+        this.agents.set(role, { bundle: bundle ?? this.bundle, role });
         return this;
     }
 
     getRequest(): SimpleFileDefinition[] {
         return [
             ...Array.from( this.agents.values() ),
-            { bundle: this.bundle, role: this.land },
+            { bundle: this.bundle, role: this.land }
         ]
     }
 
@@ -126,7 +121,7 @@ export class SceneFactory {
         }
     }
 
-    async loadSceneAssets() {
+    async load() {
 
         let files: SimpleFileDefinition[] = [];
 
@@ -137,8 +132,6 @@ export class SceneFactory {
            files = [ ...files, ...f ];
 
         } );
-
-        console.log( this.layers );
 
         return assets.request().addFilesRequest( ...files ).loadRegisteredAssets().then(() => this.getResult());
 

@@ -1,7 +1,8 @@
 export enum Bundles {
     draft = "draft",
     dummy = "dummy",
-    normal = "normal"
+    normal = "normal",
+    paper = "paper"
 }
 
 export type AvailableScenes = keyof Bundles;

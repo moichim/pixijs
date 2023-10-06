@@ -7,6 +7,7 @@ import { XYVal } from "../../utils/XYVal";
 import { ContainerGameObject } from "../ContainerGameObject";
 import { GameObject } from "../GameObject";
 import { TweenTick } from "../Tick/TweenTick";
+import { Spots } from "./Spots";
 
 export class SceneLayer extends GameObject {
 
@@ -19,6 +20,7 @@ export class SceneLayer extends GameObject {
     public positioner = ContainerGameObject.atCenter();
     public content = ContainerGameObject.atCenter();
     public land = ContainerGameObject.atCenter();
+    public spots!: Spots; // = Spots.atCenter( this.definition );
 
     // Filters
 
@@ -46,6 +48,8 @@ export class SceneLayer extends GameObject {
 
         this.depth = this.definition.depth;
 
+        
+
         // Set center
         this.x = app.screen.width / -2;
         this.y = ( app.screen.height / -2 );
@@ -54,8 +58,8 @@ export class SceneLayer extends GameObject {
         this.addGameObject( this.panner );
         this.panner.addGameObject( this.positioner );
         this.positioner.addGameObject( this.content );
-        this.content.addGameObject( this.land );
-
+        
+        
         // Implement shift
         if ( this.definition.shift ) {
             if ( this.definition.shift.x )
@@ -73,6 +77,18 @@ export class SceneLayer extends GameObject {
     }
 
     protected onMount(): void {
+
+        // console.log( this );
+
+        // Build children that were not possible to build earlier
+        this.spots = Spots.fromMiddle( this.definition, this.parent!.factory.colors );
+
+        this.content.addGameObject( this.spots );
+
+        this.content.addGameObject( this.land );
+
+        this.land.interactiveChildren = false;
+
         
         // Add listeners to parent properties
 
@@ -99,14 +115,21 @@ export class SceneLayer extends GameObject {
     public async onShow() {
         super.onShow && super.onShow();
 
-        console.log( this.definition.land );
-
+            // Build the land
             const l = new Sprite( this.definition.land!.texture! );
 
             l.pivot.set( .5 );
             l.anchor.set( .5 );
 
             this.land.addChild( l );
+
+
+            // Build spots
+            this.spots.buildSpots();
+
+            this.inheritDepth( this.parent.depthScaleFactor );
+            this.inheritTint( this.parent.depthOverlayFactor );
+            this.inheritBlur( this.parent.depthBlurFactor );
 
         return this;
     }
@@ -116,6 +139,7 @@ export class SceneLayer extends GameObject {
     // Animable properties
     public inheritDepth( value: number ) {
         this.scale.set( this.getNegativeAspect( value, 0 ) );
+        this.spots.children.map( spot => spot.scale.set( this.getNegativeAspect( value, 0 )  ) );
     }
 
     public inheritBlur( value: number ) {

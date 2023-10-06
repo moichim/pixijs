@@ -73,6 +73,7 @@ export class TweenManager {
     }
 
     update() {
+        if ( this.ticks )
         for ( const tick of this.ticks.values() ) {
             tick.update.call( this.object );
         }

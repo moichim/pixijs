@@ -2,6 +2,7 @@ import { app } from "../../main";
 import { ContainerGameObject } from "../ContainerGameObject";
 import { GameObject } from "../GameObject";
 import { StaticTick } from "../Tick/StaticTick";
+
 /** Do nto forget to call super methods! */
 export abstract class GameScene extends GameObject {
     

@@ -1,13 +1,13 @@
 import { Polygon, Rectangle, Ellipse } from "pixi.js"
 import { Agents, Bundles, Layers } from "./Declarations"
 
-type LayerSpotMeta = {
+export type LayerSpotMeta = {
     x: number,
     y: number,
     rotation: number
 }
 
-type LayerMeta = {
+export type LayerMeta = {
     shift?: {x?: number, y?: number},
     spots?: LayerSpotMeta[],
     clip?: Polygon|Rectangle|Ellipse

@@ -140,11 +140,17 @@ export abstract class GameObject extends Container {
 
         if ( this.onDestroy ) 
             this.onDestroy();
-        
-        this.ticks.stopAll();
-        this.ticks.destroy();
 
-        this.parent?.removeChild( this );
+        if ( this.ticks ) {
+            this.ticks.stopAll();
+            this.ticks.destroy();
+        }
+
+        this.visible = false;
+        this.interactive = false;
+        this.interactiveChildren = false;
+
+        this.parent!.removeChild( this );
 
     }
     protected onDestroy?(): void;
