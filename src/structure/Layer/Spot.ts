@@ -1,6 +1,5 @@
-import { Graphics } from "pixi.js";
-import { GameObject } from "../GameObject";
 import { BundledFile } from "../../assets/AssetsManager";
+import { GameObject } from "../GameObject";
 import { Agent } from "./Agent";
 
 export class Spot extends GameObject {

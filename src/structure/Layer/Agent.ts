@@ -1,9 +1,8 @@
-import { DisplayObject, Sprite } from "pixi.js";
+import { OutlineFilter } from "pixi-filters";
+import { Sprite } from "pixi.js";
 import { BundledFile } from "../../assets/AssetsManager";
 import { GameObject } from "../GameObject";
-import { Tween } from "@tweenjs/tween.js";
 import { TweenTick } from "../Tick/TweenTick";
-import { OutlineFilter } from "pixi-filters";
 import { Spot } from "./Spot";
 
 export class Agent extends GameObject {

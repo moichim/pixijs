@@ -1,4 +1,5 @@
-import { AssetsManager } from './assets/AssetsManager';
+
+import { AssetsManager } from './Assets/AssetsManager';
 import { DummyScene } from './scenes/DummyScene';
 import { Game } from './structure/Game';
 import { GameObject } from './structure/GameObject';
@@ -26,7 +27,7 @@ async function init() {
 
     scene.factory.addLayer( 0, "layer_1" );
     scene.factory.addLayer( 1, "layer_2" );
-    const s3 = scene.factory.addLayer( 2, "layer_3" );
+    scene.factory.addLayer( 2, "layer_3" );
     scene.factory.addLayer( 3, "layer_4" );
     scene.factory.addLayer( 4, "layer_5" );
 
@@ -36,8 +37,6 @@ async function init() {
     scene.perspective.x = 100;
     scene.perspective.y = 100;
     scene.factory.colors.primary = 0x00ffff;
-
-    console.log( scene.factory );
 
     setTimeout(  () => {
         scene.addAgent();
