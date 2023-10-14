@@ -1,6 +1,6 @@
 import { OutlineFilter } from "pixi-filters";
 import { Sprite } from "pixi.js";
-import { BundledFile } from "../../assets/AssetsManager";
+import { BundledFile } from "../../Assets/AssetsManager";
 import { GameObject } from "../GameObject";
 import { TweenTick } from "../Tick/TweenTick";
 import { Spot } from "./Spot";

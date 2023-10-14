@@ -1,4 +1,4 @@
-import { BundledFile } from "../../assets/AssetsManager";
+import { BundledFile } from "../../Assets/AssetsManager";
 import { GameObject } from "../GameObject";
 import { Agent } from "./Agent";
 
